@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<html>
+  <head>
+    <title>Page base</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="nav-left">
+          <h1><a href="/">Django blog</a></h1>
+        </div>
+
+        <div class="nav-right">
+        {% if user.is_authenticated %}
+          <h4>Hi {{ user.username }}!</h4>
+          <h4><a href="{% url 'logout' %}">logout</a></h4>
+        {% else %}
+          <h4>You are not logged in.</h4>
+          <h4 href="{% url 'login' %}">login</h4>
+          <h4 href="{% provider_login_url 'google' %}">Sign Up Google</h4>
+        {% endif %}
+
+          <a href="{% url 'cardapio_new' %}">| Novo cardapio </a>
+          <a href="{% url 'reserva_new' %}">| Reservar </a>
+          <a href="{% url 'reserva_detail' %}">| Lista de reservar </a>
+        </div>
+      </header>
+      {% block content %}
+      {% endblock content %}
+    </div>
+  </body>
+</html>

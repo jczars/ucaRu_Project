@@ -153,6 +153,114 @@ logg de admin
 ./manage.py makemiations accounts
 ./manage.py migrate accounts
 
+## git 
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/jczars/ucaRu_Project.git
+git push -u origin master
+
+## app cardapio
+./manage.py startapp cardapio
+## urls.py
+path('cardapio/', include('cardapio.urls')),
+
+## cardapio/urls.py
+from django.urls import path
+from . import views
+urlpatterns = [
+    path('', views.HomeListView.as_view(), name='home'),
+]
+
+### cardapio/views
+from django.views.generic import ListView, DetailView
+from . models import Cardapio
+
+class HomeListView(ListView):
+    model = Cardapio
+    template_name = 'home.html'
+
+### template
+cardapio/template
+
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for Cardapio in object_list %}
+    <div class="post-entry">
+      <h2><a href="">{{ Cardapio.pratoPrincipal }}</a></h2>
+      <p>{{ post.refeicao }}</p>
+    </div>
+  {% endfor %}
+{% endblock content %}
+
+<!-- templates/base.html -->
+<html>
+  <head>
+    <title>Django blog</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Django blog</a></h1>
+    </header>
+    <div class="container">
+      {% block content %}
+      {% endblock content %}
+    </div>
+  </body>
+</html>
+
+### cardapio/models.py
+from django.db import models
+from django.contrib.auth.models import User
+from datetime import date
+
+# Create your models here.
+class Cardapio(models.Model):
+    pratoPrincipal = models.TextField(max_length=30)
+    refeicao = models.TextField(max_length=30)
+    salada = models.TextField(max_length=30)
+    acompanhamento = models.TextField(max_length=30)
+    sobremesa = models.TextField(max_length=30)
+    observa = models.TextField(blank=True, null=True)
+    dataCap = models.DateField(default=date.today)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.pratoPrincipal
+
+class Reserva(models.Model):
+    resData = models.DateField(default=date.today)
+    resHora = models.TimeField()
+    idCap = models.ForeignKey(Cardapio, null=True, related_name='reserva', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.resData
+
+## Registra App
+'cardapio'
+
+## Registra Admin
+from django.contrib import admin
+from . models import Cardapio
+# Register your models here.
+admin.site.register(Cardapio)
+
+## migrate BD
+./manage.py migrate cardapio
+
+./managy runserver
+
+## cadastrar no admin os cardapios
+
+## static files
+cardapio/static/css
+
+# myproject/settings.py
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 
 
 

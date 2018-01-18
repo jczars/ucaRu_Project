@@ -1,0 +1,13 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Page Home</h2>
+  {% for Cardapio in object_list %}
+    <div class="post-entry">
+      <h2><a href="{% url 'cardapio_detail' Cardapio.pk %}">{{ Cardapio.pratoPrincipal }}</a></h2>
+      <p>{{ Cardapio.id }}</p>
+      <p>{{ Cardapio.refeicao }}</p>
+    </div>
+  {% endfor %}
+{% endblock content %}

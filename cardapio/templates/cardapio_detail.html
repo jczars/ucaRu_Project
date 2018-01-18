@@ -1,0 +1,19 @@
+<!-- templates/cardapio_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="post-entry">
+    <h2><a href="{% url 'reserva_new'%}">{{ cardapio.pratoPrincipal }}</a></h2>
+    <p>{{ cardapio.id }}</p>
+    <p>{{ cardapio.refeicao }}</p>
+    <p>{{ cardapio.salada }}</p>
+    <p>{{ cardapio.acompanhamento }}</p>
+    <p>{{ cardapio.sobremesa }}</p>
+    <p>{{ cardapio.dataCap }}</p>
+    <p>{{ cardapio.user }}</p>
+    <p>{{ cardapio.observa }}</p>
+
+
+  </div>
+
+{% endblock content %}

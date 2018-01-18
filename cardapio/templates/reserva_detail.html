@@ -1,0 +1,13 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for Reserva in object_list %}
+    <div class="post-entry">
+      <h2><a href="">{{ Reserva.resData }}</a></h2>
+      <p>{{ Reserva.resHora }}</p>
+      <p>{{ Reserva.idCap }}</p>
+      <p>{{ Reserva.user }}</p>
+    </div>
+  {% endfor %}
+{% endblock content %}
